@@ -21,6 +21,12 @@ func main() {
 	app.Action = run
 	app.Flags = []cli.Flag{
 		cli.IntFlag{
+			Name:   "delay, d",
+			EnvVar: "DELAY",
+			Usage:  "Milliseconds to wait before sending the reponse",
+			Value:  0,
+		},
+		cli.IntFlag{
 			Name:   "port, p",
 			EnvVar: "PORT",
 			Usage:  "Port to listen on",
@@ -37,14 +43,15 @@ func main() {
 }
 
 func run(context *cli.Context) {
-	port, statusCode := getOpts(context)
+	delay, port, statusCode := getOpts(context)
 
-	server := statusserver.New(port, statusCode)
+	server := statusserver.New(delay, port, statusCode)
 	err := server.Run()
 	log.Fatalln(err.Error)
 }
 
-func getOpts(context *cli.Context) (int, int) {
+func getOpts(context *cli.Context) (int, int, int) {
+	delay := context.Int("delay")
 	port := context.Int("port")
 	statusCode := context.Int("status-code")
 
@@ -57,7 +64,7 @@ func getOpts(context *cli.Context) (int, int) {
 		os.Exit(1)
 	}
 
-	return port, statusCode
+	return delay, port, statusCode
 }
 
 func version() string {

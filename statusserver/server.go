@@ -6,11 +6,11 @@ import (
 )
 
 type statusServer struct {
-	port, statusCode int
+	delay, port, statusCode int
 }
 
 func (server *statusServer) Run() error {
 	addr := fmt.Sprintf(":%v", server.port)
-	handler := &statusHandler{statusCode: server.statusCode}
+	handler := &statusHandler{delay: server.delay, statusCode: server.statusCode}
 	return http.ListenAndServe(addr, handler)
 }

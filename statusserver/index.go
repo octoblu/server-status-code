@@ -7,6 +7,6 @@ type Server interface {
 }
 
 // New constructs a new Server instance
-func New(port, statusCode int) Server {
-	return &statusServer{port: port, statusCode: statusCode}
+func New(delay, port, statusCode int) Server {
+	return &statusServer{delay: delay, port: port, statusCode: statusCode}
 }
