@@ -1,5 +1,5 @@
-FROM scratch
+FROM centurylink/ca-certs 
 MAINTAINER Octoblu, Inc. <docker@octoblu.com>
 
-ADD server-status-code server-status-code
-ENTRYPOINT ["./server-status-code"]
+ADD entrypoint entrypoint
+ENTRYPOINT ["./entrypoint"]
