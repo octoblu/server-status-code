@@ -13,7 +13,7 @@ func (handler *statusHandler) ServeHTTP(response http.ResponseWriter, request *h
 	if request.URL.Path == "/healthcheck" {
 		response.Header().Set("Content-Type", "application/json")
 		response.WriteHeader(http.StatusOK)
-		response.Write([]byte("{\"online\": true}"))
+		response.Write([]byte("{\"online\":true}"))
 	} else {
 		time.Sleep(time.Duration(handler.delay) * time.Millisecond)
 		response.WriteHeader(handler.statusCode)
